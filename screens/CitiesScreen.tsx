@@ -6,13 +6,12 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { TCitiesScreenProps } from "../types/screenTypes";
 import { THEATRES_SCREEN } from "../constants/screenConstants";
 
+import { cities } from "../data/cities";
+
 const CitiesScreen = ({ navigation }: TCitiesScreenProps) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    { label: "Istanbul (Avrupa)", value: "istanbul_avrupa" },
-    { label: "Adana", value: "adana" },
-  ]);
+  const [value, setValue] = useState("");
+  const [items, setItems] = useState([...cities]);
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -46,7 +45,8 @@ const CitiesScreen = ({ navigation }: TCitiesScreenProps) => {
       />
       <Button
         title="Salonlari Gor"
-        onPress={() => navigation.navigate(THEATRES_SCREEN, { url: "" })}
+        disabled={value === "" ? true : false}
+        onPress={() => navigation.navigate(THEATRES_SCREEN, { url: value })}
       />
     </View>
   );
