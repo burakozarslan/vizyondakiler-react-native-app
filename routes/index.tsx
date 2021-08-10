@@ -16,10 +16,7 @@ const RootNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="CitiesScreen" component={CitiesScreen} />
-        <Stack.Screen
-          name="TheatTheatresScreenres"
-          component={TheatresScreen}
-        />
+        <Stack.Screen name="TheatresScreen" component={TheatresScreen} />
         <Stack.Screen name="MoviesScreen" component={MoviesScreen} />
         <Stack.Screen
           name="MovieDetailsScreen"

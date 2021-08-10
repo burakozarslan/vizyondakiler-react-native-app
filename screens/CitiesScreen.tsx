@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import DropDownPicker from "react-native-dropdown-picker";
 
-const CitiesScreen = () => {
+const CitiesScreen = ({ navigation }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
@@ -40,6 +40,10 @@ const CitiesScreen = () => {
         dropDownContainerStyle={{
           backgroundColor: "#333",
         }}
+      />
+      <Button
+        title="Salonlari Gor"
+        onPress={() => navigation.navigate("TheatresScreen")}
       />
     </View>
   );
