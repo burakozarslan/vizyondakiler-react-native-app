@@ -9,12 +9,14 @@ import {
   MovieDetailsScreen,
 } from "../screens";
 
-const Stack = createNativeStackNavigator();
+import { TRootStackParamList } from "../types/screenTypes";
+
+const Stack = createNativeStackNavigator<TRootStackParamList>();
 
 const RootNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="CitiesScreen">
         <Stack.Screen name="CitiesScreen" component={CitiesScreen} />
         <Stack.Screen name="TheatresScreen" component={TheatresScreen} />
         <Stack.Screen name="MoviesScreen" component={MoviesScreen} />

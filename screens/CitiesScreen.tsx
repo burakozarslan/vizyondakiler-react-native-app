@@ -3,7 +3,10 @@ import { View, Text, Button } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import DropDownPicker from "react-native-dropdown-picker";
 
-const CitiesScreen = ({ navigation }) => {
+import { TCitiesScreenProps } from "../types/screenTypes";
+import { THEATRES_SCREEN } from "../constants/screenConstants";
+
+const CitiesScreen = ({ navigation }: TCitiesScreenProps) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
@@ -43,7 +46,7 @@ const CitiesScreen = ({ navigation }) => {
       />
       <Button
         title="Salonlari Gor"
-        onPress={() => navigation.navigate("TheatresScreen")}
+        onPress={() => navigation.navigate(THEATRES_SCREEN, { url: "" })}
       />
     </View>
   );
