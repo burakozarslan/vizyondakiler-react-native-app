@@ -12,3 +12,10 @@ export type TTheatre = {
   };
   url: string;
 };
+
+export type TTheatreFeatureProps = {
+  name: string;
+  color: string;
+  size: number;
+  isAvailable: boolean;
+};
