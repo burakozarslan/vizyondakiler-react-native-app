@@ -1,13 +1,17 @@
 import React from "react";
 import { View, Text } from "react-native";
+import { t } from "react-native-tailwindcss";
 
 import { TMovieDetailsScreenProps } from "../types/screenTypes";
+import ScreenLayout from "../components/ScreenLayout";
 
 const MovieDetails = ({ route }: TMovieDetailsScreenProps) => {
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Movie Details Screen</Text>
-    </View>
+    <ScreenLayout>
+      <View style={[t.flex1, t.bgGray900]}>
+        <Text>Movie Details</Text>
+      </View>
+    </ScreenLayout>
   );
 };
 

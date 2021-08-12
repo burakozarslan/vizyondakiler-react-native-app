@@ -13,6 +13,7 @@ import {
 import { StatusBar as StatusBarExpo } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
 import { t } from "react-native-tailwindcss";
+import ScreenLayout from "../components/ScreenLayout";
 
 import { default as TheatreFeature } from "../components/TheatreFeature";
 
@@ -141,8 +142,7 @@ const TheatresScreen = ({ navigation, route }: TTheatresScreenProps) => {
   const [theatres, setTheatres] = React.useState(theatresData);
 
   return (
-    <SafeAreaView style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
-      <StatusBarExpo style={"light"} backgroundColor="#000" />
+    <ScreenLayout>
       <LinearGradient
         colors={["#222", "#222"]}
         start={{ x: 0, y: 1 }}
@@ -157,7 +157,7 @@ const TheatresScreen = ({ navigation, route }: TTheatresScreenProps) => {
           keyExtractor={(_, index) => String(index)}
         />
       </LinearGradient>
-    </SafeAreaView>
+    </ScreenLayout>
   );
 };
 
