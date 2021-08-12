@@ -20,7 +20,7 @@ type TCitiesScreenNavigationProp = NativeStackNavigationProp<
   typeof CITIES_SCREEN
 >;
 
-type TTheatresScreenNavigationProp = NativeStackNavigationProp<
+export type TTheatresScreenNavigationProp = NativeStackNavigationProp<
   TRootStackParamList,
   typeof THEATRES_SCREEN
 >;

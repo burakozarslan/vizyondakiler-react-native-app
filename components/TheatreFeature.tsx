@@ -25,8 +25,18 @@ type TCheckOrCrossProps = {
 };
 
 const CheckOrCross = ({ isCheck, size }: TCheckOrCrossProps) => {
-  if (isCheck) return <Entypo name="check" size={size} color="green" />;
-  return <Entypo name="cross" size={size} color="red" />;
+  if (isCheck)
+    return (
+      <Entypo
+        style={{ marginTop: 5 }}
+        name="check"
+        size={size - 5}
+        color="green"
+      />
+    );
+  return (
+    <Entypo style={{ marginTop: 5 }} name="cross" size={size} color="red" />
+  );
 };
 
 const TheatreFeature = ({
