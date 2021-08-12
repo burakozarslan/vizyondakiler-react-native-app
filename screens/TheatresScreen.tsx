@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { StatusBar as StatusBarExpo } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
+import { t } from "react-native-tailwindcss";
 
 import { default as TheatreFeature } from "../components/TheatreFeature";
 
@@ -46,16 +47,17 @@ const RenderItem = ({
     <TouchableOpacity
       onPress={() => navigation.navigate(MOVIES_SCREEN, { url: "" })}
     >
-      <LinearGradient
-        colors={["#222", "#333"]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={{
-          marginBottom: height * 0.01,
-          marginHorizontal: width * 0.05,
-          padding: width * 0.025,
-          borderRadius: 10,
-        }}
+      <View
+        // colors={["#222", "#333"]}
+        // start={{ x: 0, y: 0 }}
+        // end={{ x: 1, y: 1 }}
+        // style={{
+        //   marginBottom: height * 0.01,
+        //   marginHorizontal: width * 0.05,
+        //   padding: width * 0.025,
+        //   borderRadius: 10,
+        // }}
+        style={[t.bgGray900, t.mB3, t.mX4, t.p2, t.roundedLg, t.shadowLg]}
       >
         <Text
           style={{
@@ -130,7 +132,7 @@ const RenderItem = ({
             Filmleri Gormek Icin Tikla
           </Text>
         </View>
-      </LinearGradient>
+      </View>
     </TouchableOpacity>
   );
 };
