@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { t } from "react-native-tailwindcss";
-import ScreenLayout from "../components/ScreenLayout";
+import ScreenLayout from "../components/shared/ScreenLayout";
 
 import { default as TheatreFeature } from "../components/TheatreFeature";
 

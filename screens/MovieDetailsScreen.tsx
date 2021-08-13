@@ -1,9 +1,18 @@
 import React from "react";
-import { View, Text, Image, ScrollView, FlatList } from "react-native";
-import tw from "tailwind-react-native-classnames";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
+import tw from "../lib/tailwind";
+import * as Linking from "expo-linking";
+
 import { Ionicons } from "@expo/vector-icons";
 
-import ScreenLayout from "../components/ScreenLayout";
+import ScreenLayout from "../components/shared/ScreenLayout";
 import { TMovieDetailsScreenProps } from "../types/screenTypes";
 import { TArtist } from "../types/dataTypes";
 
@@ -16,7 +25,12 @@ const StyledText = ({ children }: { children: string }): JSX.Element => {
 
 const Pill = ({ children }: { children: JSX.Element }): JSX.Element => {
   return (
-    <View style={tw.style("mr-1", "bg-green-900", "px-1", "py-px", "rounded")}>
+    <View
+      style={tw.style(
+        "mr-1",
+        "bg-green-900 px-1 py-px rounded drop-shadow-2xl"
+      )}
+    >
       {children}
     </View>
   );
@@ -40,6 +54,10 @@ const renderArtist = (artist: TArtist) => {
   return <Artist name={artist.name} image={artist.image} />;
 };
 
+const handleOpenLink = (url: string) => {
+  Linking.openURL(url);
+};
+
 const MovieDetailsScreen = ({ route }: TMovieDetailsScreenProps) => {
   return (
     <ScreenLayout>
@@ -54,7 +72,9 @@ const MovieDetailsScreen = ({ route }: TMovieDetailsScreenProps) => {
             {/* Movie Poster */}
             <Image
               blurRadius={0.5}
-              style={tw.style("flex-1 rounded-lg", { resizeMode: "cover" })}
+              style={tw.style("flex-1 rounded-lg", {
+                resizeMode: "cover",
+              })}
               source={{
                 uri: movieDetail.poster,
               }}
@@ -68,7 +88,11 @@ const MovieDetailsScreen = ({ route }: TMovieDetailsScreenProps) => {
               }
             )}
           >
-            <Ionicons name="play-circle" size={80} color="orange" />
+            <TouchableOpacity
+              onPress={() => handleOpenLink(movieDetail.trailer)}
+            >
+              <Ionicons name="play-circle" size={80} color="orange" />
+            </TouchableOpacity>
           </View>
         </View>
         {/* Bottom Half */}
