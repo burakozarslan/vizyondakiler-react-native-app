@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Text } from "react-native";
-import { t } from "react-native-tailwindcss";
+import { View, Text, Image } from "react-native";
+import tw from "tailwind-react-native-classnames";
 
 import { TMovieDetailsScreenProps } from "../types/screenTypes";
 import ScreenLayout from "../components/ScreenLayout";
@@ -8,8 +8,17 @@ import ScreenLayout from "../components/ScreenLayout";
 const MovieDetails = ({ route }: TMovieDetailsScreenProps) => {
   return (
     <ScreenLayout>
-      <View style={[t.flex1, t.bgGray900]}>
-        <Text>Movie Details</Text>
+      <View style={tw.style(`flex-1`, `bg-black`)}>
+        <View style={tw.style(`h-1/2`)}>
+          <View style={tw.style(`flex-1`)}>
+            <Image
+              style={tw.style(`flex-1`, { resizeMode: "cover" })}
+              source={{
+                uri: "https://hdizlefilmleri.com/wp-content/uploads/2020/10/kod-adi-angel-2018-turkce-dublaj-720p.jpg",
+              }}
+            />
+          </View>
+        </View>
       </View>
     </ScreenLayout>
   );
