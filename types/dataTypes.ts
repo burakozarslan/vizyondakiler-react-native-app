@@ -19,3 +19,19 @@ export type TTheatreFeatureProps = {
   size: number;
   isAvailable: boolean;
 };
+
+export type TArtist = {
+  name: string;
+  image: string;
+};
+
+export type TMovieDetails = {
+  title: string;
+  trailer: string;
+  poster: string;
+  categories: string[];
+  description: string;
+  year: string;
+  country: string;
+  cast: TArtist[];
+};

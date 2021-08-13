@@ -2,15 +2,11 @@ import React from "react";
 import {
   View,
   Text,
-  Button,
   StyleSheet,
-  SafeAreaView,
-  StatusBar,
   FlatList,
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import { StatusBar as StatusBarExpo } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
 import { t } from "react-native-tailwindcss";
 import ScreenLayout from "../components/ScreenLayout";
