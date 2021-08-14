@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { t } from "react-native-tailwindcss";
+import tw from "../lib/tailwind";
 import ScreenLayout from "../components/shared/ScreenLayout";
 
 import { default as TheatreFeature } from "../components/TheatreFeature";
@@ -30,6 +31,7 @@ import {
   PHONE_RESERVATION,
   PARKING,
 } from "../constants/featureConstants";
+import CardView from "../components/shared/CardView";
 
 const { width, height } = Dimensions.get("window");
 
@@ -44,35 +46,31 @@ const RenderItem = ({
     <TouchableOpacity
       onPress={() => navigation.navigate(MOVIES_SCREEN, { url: "" })}
     >
-      <View
-        // colors={["#222", "#333"]}
-        // start={{ x: 0, y: 0 }}
-        // end={{ x: 1, y: 1 }}
-        // style={{
-        //   marginBottom: height * 0.01,
-        //   marginHorizontal: width * 0.05,
-        //   padding: width * 0.025,
-        //   borderRadius: 10,
-        // }}
-        style={[t.bgGray900, t.mB3, t.mX4, t.p2, t.roundedLg, t.shadowLg]}
-      >
+      <CardView>
         <Text
-          style={{
-            color: "#E9EDF7",
-            fontSize: width * 0.05,
-            fontWeight: "bold",
-          }}
+          style={tw.style("text-white text-lg", {
+            fontFamily: "RobotoSlab_400Regular",
+          })}
         >
           {item.title}
         </Text>
         <View style={{ height: height * 0.18, marginTop: height * 0.01 }}>
-          <Text style={{ color: "#E9EDF7" }}>
+          <Text
+            style={{
+              fontFamily: "InriaSans_400Regular",
+              color: "white",
+            }}
+          >
             {" "}
-            <Text style={{ fontWeight: "bold" }}>Adres:</Text> {item.address}
+            <Text>Adres:</Text> {item.address}
           </Text>
-          <Text style={{ color: "#E9EDF7" }}>
+          <Text
+            style={tw.style("text-white mt-1", {
+              fontFamily: "InriaSans_400Regular",
+            })}
+          >
             {" "}
-            <Text style={{ fontWeight: "bold" }}>Telefon:</Text> {item.tel}
+            <Text style={tw.style("text-white")}>Telefon:</Text> {item.tel}
           </Text>
           <View
             style={{
@@ -123,13 +121,14 @@ const RenderItem = ({
             style={{
               alignSelf: "flex-end",
               color: "#EBB026",
-              fontWeight: "bold",
+              fontWeight: "normal",
+              fontFamily: "InriaSans_400Regular",
             }}
           >
             Filmleri Gormek Icin Tikla
           </Text>
         </View>
-      </View>
+      </CardView>
     </TouchableOpacity>
   );
 };
@@ -140,7 +139,7 @@ const TheatresScreen = ({ navigation, route }: TTheatresScreenProps) => {
   return (
     <ScreenLayout>
       <LinearGradient
-        colors={["#222", "#222"]}
+        colors={["#171824", "#171824"]}
         start={{ x: 0, y: 1 }}
         end={{ x: 1, y: 0 }}
         style={styles.screen}

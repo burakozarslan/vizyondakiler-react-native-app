@@ -1,12 +1,19 @@
 import React, { ReactNode } from "react";
 import { StatusBar as StatusBarExpo } from "expo-status-bar";
-import { SafeAreaView, StatusBar } from "react-native";
+import { SafeAreaView, StatusBar, View } from "react-native";
+import tw from "../../lib/tailwind";
 
 const ScreenLayout = ({ children }: { children: ReactNode }) => {
   return (
     <SafeAreaView style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
       <StatusBarExpo style={"light"} backgroundColor="#000" />
-      {children}
+      <View
+        style={tw.style("flex-1", {
+          backgroundColor: "#131313",
+        })}
+      >
+        {children}
+      </View>
     </SafeAreaView>
   );
 };
