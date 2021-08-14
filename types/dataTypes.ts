@@ -35,3 +35,16 @@ export type TMovieDetails = {
   country: string;
   cast: TArtist[];
 };
+
+type TSession = {
+  type: string;
+  times: string[];
+};
+
+export type TMovie = {
+  title: string;
+  originalTitle: string;
+  categories: string[];
+  poster: string;
+  sessions: TSession[];
+};
