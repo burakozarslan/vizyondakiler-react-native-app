@@ -30,7 +30,7 @@ type TTheatresScreenRouteProp = RouteProp<
   typeof THEATRES_SCREEN
 >;
 
-type TMoviesScreenNavigationProp = NativeStackNavigationProp<
+export type TMoviesScreenNavigationProp = NativeStackNavigationProp<
   TRootStackParamList,
   typeof MOVIES_SCREEN
 >;

@@ -1,17 +1,29 @@
+import { LinearGradient } from "expo-linear-gradient";
 import React, { ReactNode } from "react";
-import { View } from "react-native";
+import { View, Dimensions, StyleSheet } from "react-native";
 import tw from "../../lib/tailwind";
 
-const CardView = ({
-  children,
-}: {
-  children: JSX.Element | JSX.Element[];
-}): JSX.Element => {
+const { width, height } = Dimensions.get("window");
+
+const CardView = ({ children }: { children: ReactNode }): JSX.Element => {
   return (
-    <View style={tw.style("bg-blue-900 mb-3 mx-4 p-2 rounded-lg shadow-2xl")}>
+    <LinearGradient colors={["#292D3A", "#0E0F1B"]} style={styles.card}>
       {children}
-    </View>
+    </LinearGradient>
   );
 };
+
+const styles = StyleSheet.create({
+  card: {
+    marginBottom: 8,
+    padding: width * 0.03,
+    borderRadius: 10,
+    width: width * 0.95,
+    borderBottomWidth: 2,
+    borderRightWidth: 1,
+    borderBottomColor: "#292D3A",
+    borderRightColor: "#292D3A",
+  },
+});
 
 export default CardView;

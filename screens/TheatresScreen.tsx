@@ -48,8 +48,8 @@ const RenderItem = ({
     >
       <CardView>
         <Text
-          style={tw.style("text-white text-lg", {
-            fontFamily: "RobotoSlab_400Regular",
+          style={tw.style("text-white text-xl", {
+            fontFamily: "Inter_400Regular",
           })}
         >
           {item.title}
@@ -73,47 +73,44 @@ const RenderItem = ({
             <Text style={tw.style("text-white")}>Telefon:</Text> {item.tel}
           </Text>
           <View
-            style={{
-              flex: 1,
-              justifyContent: "space-between",
-              alignItems: "center",
-              flexDirection: "row",
-            }}
+            style={tw.style(
+              "flex-1 justify-between items-center flex-row mt-4"
+            )}
           >
             <TheatreFeature
               name={THREE_D}
               color="#E9EDF7"
-              size={24}
+              size={20}
               isAvailable={item.features.three_d}
             />
             <TheatreFeature
               name={AIR_CONDITIONER}
               color="#E9EDF7"
-              size={24}
+              size={20}
               isAvailable={item.features.aircond}
             />
             <TheatreFeature
               name={RESTAURANT}
               color="#E9EDF7"
-              size={24}
+              size={20}
               isAvailable={item.features.restaurant}
             />
             <TheatreFeature
               name={DOLBY}
               color="#E9EDF7"
-              size={24}
+              size={20}
               isAvailable={item.features.dolby}
             />
             <TheatreFeature
               name={PHONE_RESERVATION}
               color="#E9EDF7"
-              size={24}
+              size={20}
               isAvailable={item.features.phone_res}
             />
             <TheatreFeature
               name={PARKING}
               color="#E9EDF7"
-              size={24}
+              size={20}
               isAvailable={item.features.parking}
             />
           </View>
@@ -121,8 +118,8 @@ const RenderItem = ({
             style={{
               alignSelf: "flex-end",
               color: "#EBB026",
-              fontWeight: "normal",
               fontFamily: "InriaSans_400Regular",
+              marginTop: 5,
             }}
           >
             Filmleri Gormek Icin Tikla

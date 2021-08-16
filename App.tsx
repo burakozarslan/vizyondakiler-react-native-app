@@ -7,6 +7,7 @@ import {
   InriaSans_400Regular,
   InriaSans_700Bold,
   RobotoSlab_400Regular,
+  Inter_400Regular,
 } from "@expo-google-fonts/dev";
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
     InriaSans_400Regular,
     InriaSans_700Bold,
     RobotoSlab_400Regular,
+    Inter_400Regular,
   });
 
   if (!fontsLoaded) return <AppLoading />;

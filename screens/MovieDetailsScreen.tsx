@@ -35,8 +35,8 @@ const Pill = ({ children }: { children: JSX.Element }): JSX.Element => {
 
 const Artist = ({ name, image }: TArtist): JSX.Element => {
   return (
-    <View style={tw.style("w-20 h-36 mr-2")}>
-      <View style={tw.style("h-28")}>
+    <View style={tw.style("w-16 h-28 mr-2")}>
+      <View style={tw.style("h-20")}>
         <Image
           style={tw.style("w-full h-full", { resizeMode: "cover" })}
           source={{ uri: image }}
@@ -76,7 +76,7 @@ const MovieDetailsScreen = ({ route }: TMovieDetailsScreenProps) => {
           style={tw.style(
             "absolute left-0 top-0 right-0 bottom-0 flex justify-center items-center",
             {
-              backgroundColor: "rgba(0,0,0,.6)",
+              backgroundColor: "rgba(0,0,0,.5)",
             }
           )}
         >
@@ -114,8 +114,11 @@ const MovieDetailsScreen = ({ route }: TMovieDetailsScreenProps) => {
             })}
           </View>
           <View>
-            <Text style={tw.style("text-pink-900", "font-bold")}>
-              2020 - ABD
+            <Text style={tw.style("text-pink-900 font-bold text-xs")}>
+              Yapim: {movieDetail.country}
+            </Text>
+            <Text style={tw.style("text-pink-900 font-bold text-xs")}>
+              Sure: {movieDetail.duration}
             </Text>
           </View>
         </View>

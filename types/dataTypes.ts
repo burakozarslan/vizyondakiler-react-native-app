@@ -29,6 +29,7 @@ export type TMovieDetails = {
   title: string;
   trailer: string;
   poster: string;
+  duration: string;
   categories: string[];
   description: string;
   year: string;

@@ -1,23 +1,159 @@
 import React from "react";
-import { View, Text, Button, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+  Image,
+  FlatList,
+} from "react-native";
+import tw from "../lib/tailwind";
 
-import { TMoviesScreenProps } from "../types/screenTypes";
+import {
+  TMoviesScreenNavigationProp,
+  TMoviesScreenProps,
+} from "../types/screenTypes";
 import { MOVIE_DETAILS_SCREEN } from "../constants/screenConstants";
 import ScreenLayout from "../components/shared/ScreenLayout";
 import CardView from "../components/shared/CardView";
+import { TMovie } from "../types/dataTypes";
+
+import { movies as moviesData } from "../data/movies";
+
+const { height, width } = Dimensions.get("window");
+
+const Pill = ({ time }: { time: string }): JSX.Element => {
+  return (
+    <Text
+      style={tw.style(
+        "text-pink-900 rounded-lg border-2 border-pink-900 font-bold",
+        {
+          paddingHorizontal: width * 0.015,
+          paddingVertical: width * 0.005,
+          marginRight: width * 0.008,
+          marginTop: width * 0.008,
+        }
+      )}
+    >
+      {time}
+    </Text>
+  );
+};
+
+const RenderMovie = ({
+  item,
+  navigation,
+}: {
+  item: TMovie;
+  navigation: TMoviesScreenNavigationProp;
+}) => {
+  return (
+    <TouchableOpacity
+      onPress={() => navigation.navigate(MOVIE_DETAILS_SCREEN, { url: "" })}
+    >
+      <CardView>
+        <View style={tw.style("flex-row")}>
+          <Image
+            style={styles.image}
+            source={{
+              uri: item.poster,
+            }}
+          />
+          {/* Top Container */}
+          <View
+            style={{
+              paddingTop: width * 0.03,
+              paddingLeft: width * 0.05,
+            }}
+          >
+            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.subTitle}>{item.originalTitle}</Text>
+            <Text style={styles.text}>Tur: {item.categories.join(" ,")}</Text>
+          </View>
+        </View>
+        {/* Bottom Container */}
+        <View
+          style={{
+            paddingVertical: width * 0.03,
+          }}
+        >
+          {item.sessions.map((session, index) => {
+            return (
+              <View key={index}>
+                <Text
+                  style={{
+                    fontSize: width * 0.04,
+                    color: "white",
+                    marginTop: width * 0.02,
+                  }}
+                >
+                  {session.type}
+                </Text>
+                <View
+                  style={tw.style("flex-wrap flex-row items-center", {
+                    paddingTop: width * 0.025,
+                  })}
+                >
+                  {session.times.map((time, index) => {
+                    return <Pill key={index} time={time} />;
+                  })}
+                </View>
+              </View>
+            );
+          })}
+        </View>
+      </CardView>
+    </TouchableOpacity>
+  );
+};
 
 const MoviesScreen = ({ navigation }: TMoviesScreenProps) => {
   return (
     <ScreenLayout>
-      <TouchableOpacity
-        onPress={() => navigation.navigate(MOVIE_DETAILS_SCREEN, { url: "" })}
-      >
-        <CardView>
-          <Text>Movies Screen</Text>
-        </CardView>
-      </TouchableOpacity>
+      <View style={styles.screen}>
+        <FlatList
+          data={moviesData}
+          keyExtractor={(_, index) => String(index)}
+          renderItem={({ item }: { item: TMovie }) => (
+            <RenderMovie item={item} navigation={navigation} />
+          )}
+        />
+      </View>
     </ScreenLayout>
   );
 };
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "column",
+    backgroundColor: "#171824",
+    paddingTop: height * 0.05,
+  },
+  image: {
+    borderRadius: 5,
+    width: width * 0.2,
+    height: width * 0.3,
+  },
+  title: {
+    color: "white",
+    fontFamily: "Inter_400Regular",
+    fontSize: width * 0.045,
+  },
+  subTitle: {
+    color: "white",
+    fontFamily: "InriaSans_400Regular",
+    fontSize: width * 0.04,
+  },
+  text: {
+    color: "white",
+    fontFamily: "InriaSans_400Regular",
+    fontSize: width * 0.04,
+    marginTop: width * 0.02,
+  },
+});
 
 export default MoviesScreen;
