@@ -149,12 +149,19 @@ const ListEmptyComponent = () => {
 const TheatresScreen = ({ navigation, route }: TTheatresScreenProps) => {
   const [theatres, setTheatres] = React.useState([]);
   const [error, setError] = React.useState(null);
+  const [isMounted, setIsMounted] = React.useState(true);
 
   React.useEffect(() => {
     setError(null);
     fetchTheatres(route.params.url)
-      .then((data) => setTheatres(data))
+      .then((data) => {
+        if (isMounted) setTheatres(data);
+      })
       .catch((e) => setError(e.message));
+
+    return () => {
+      setIsMounted(false);
+    };
   });
 
   return (
