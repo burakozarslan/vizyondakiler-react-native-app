@@ -13,6 +13,7 @@ import tw from "../lib/tailwind";
 import ScreenLayout from "../components/shared/ScreenLayout";
 
 import { default as TheatreFeature } from "../components/TheatreFeature";
+import fetchTheatres from "../network/fetchTheatres";
 
 import {
   TTheatresScreenProps,
@@ -21,7 +22,6 @@ import {
 import { TTheatre } from "../types/dataTypes";
 
 import { MOVIES_SCREEN } from "../constants/screenConstants";
-import { theatres as theatresData } from "../data/theatres";
 
 import {
   THREE_D,
@@ -44,7 +44,7 @@ const RenderItem = ({
 }) => {
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate(MOVIES_SCREEN, { url: "" })}
+      onPress={() => navigation.navigate(MOVIES_SCREEN, { url: item.url })}
     >
       <CardView>
         <Text
@@ -55,23 +55,25 @@ const RenderItem = ({
           {item.title}
         </Text>
         <View style={{ height: height * 0.18, marginTop: height * 0.01 }}>
-          <Text
-            style={{
-              fontFamily: "InriaSans_400Regular",
-              color: "white",
-            }}
-          >
-            {" "}
-            <Text>Adres:</Text> {item.address}
-          </Text>
-          <Text
-            style={tw.style("text-white mt-1", {
-              fontFamily: "InriaSans_400Regular",
-            })}
-          >
-            {" "}
-            <Text style={tw.style("text-white")}>Telefon:</Text> {item.tel}
-          </Text>
+          {item.address !== "" && (
+            <Text
+              style={{
+                fontFamily: "InriaSans_400Regular",
+                color: "white",
+              }}
+            >
+              Adres: {item.address}
+            </Text>
+          )}
+          {item.tel !== "" && (
+            <Text
+              style={tw.style("text-white mt-1", {
+                fontFamily: "InriaSans_400Regular",
+              })}
+            >
+              Telefon: {item.tel}
+            </Text>
+          )}
           <View
             style={tw.style(
               "flex-1 justify-between items-center flex-row mt-4"
@@ -130,8 +132,30 @@ const RenderItem = ({
   );
 };
 
+const ListEmptyComponent = () => {
+  return (
+    <Text
+      style={{
+        fontFamily: "InriaSans_400Regular",
+        fontSize: width * 0.05,
+        color: "white",
+      }}
+    >
+      Lutfen Bekleyiniz...
+    </Text>
+  );
+};
+
 const TheatresScreen = ({ navigation, route }: TTheatresScreenProps) => {
-  const [theatres, setTheatres] = React.useState(theatresData);
+  const [theatres, setTheatres] = React.useState([]);
+  const [error, setError] = React.useState(null);
+
+  React.useEffect(() => {
+    setError(null);
+    fetchTheatres(route.params.url)
+      .then((data) => setTheatres(data))
+      .catch((e) => setError(e.message));
+  });
 
   return (
     <ScreenLayout>
@@ -141,13 +165,26 @@ const TheatresScreen = ({ navigation, route }: TTheatresScreenProps) => {
         end={{ x: 1, y: 0 }}
         style={styles.screen}
       >
-        <FlatList
-          data={theatres}
-          renderItem={({ item }) => (
-            <RenderItem item={item} navigation={navigation} />
-          )}
-          keyExtractor={(_, index) => String(index)}
-        />
+        {error ? (
+          <Text
+            style={{
+              fontFamily: "InriaSans_400Regular",
+              fontSize: width * 0.05,
+              color: "white",
+            }}
+          >
+            Bir hata olustu. Lutfen yeniden deneyin.
+          </Text>
+        ) : (
+          <FlatList
+            data={theatres}
+            renderItem={({ item }) => (
+              <RenderItem item={item} navigation={navigation} />
+            )}
+            keyExtractor={(_, index) => String(index)}
+            ListEmptyComponent={<ListEmptyComponent />}
+          />
+        )}
       </LinearGradient>
     </ScreenLayout>
   );
