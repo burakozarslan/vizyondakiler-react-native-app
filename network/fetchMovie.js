@@ -36,18 +36,18 @@ export default fetchMovie = (url) =>
                 .trim();
             }
 
-            if ($(this).find(".label-title").text().includes("Tür:")) {
-              let categories = [];
+            let categories = [];
 
+            if ($(this).find(".label-title").text().includes("Tür:")) {
               movie.production = $(this)
                 .find(".label")
                 .find("span")
                 .each(function (_, item) {
                   categories.push($(item).text().trim());
                 });
-
-              movie.categories = categories;
             }
+
+            movie.categories = categories;
           });
 
           let artists = [];

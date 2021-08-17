@@ -144,14 +144,13 @@ const MovieDetailsScreen = ({ route }: TMovieDetailsScreenProps) => {
           <View
             style={tw.style("flex-row justify-between items-center flex-wrap")}
           >
-            {movie.categories &&
-              movie.categories.map((cat, index) => {
-                return (
-                  <Pill key={index}>
-                    <StyledText>{cat}</StyledText>
-                  </Pill>
-                );
-              })}
+            {movie.categories.map((cat, index) => {
+              return (
+                <Pill key={index}>
+                  <StyledText>{cat}</StyledText>
+                </Pill>
+              );
+            })}
           </View>
           <View>
             {/* <Text style={tw.style("text-pink-900 font-bold text-xs")}>
