@@ -9,10 +9,26 @@ export default fetchMovie = (url) =>
         try {
           const $ = cheerio.load(res.data, { xmlMode: true });
 
-          let movie = {};
+          var movie = {};
           var categories = [];
 
           movie.title = $("h1").text();
+
+          // Fetch Trailer Start
+          // const baseUrl = "https://www.youtube.com/results?search_query=";
+          // const searchString =
+          //   baseUrl + movie.title.split(" ").concat("trailer").join("+");
+
+          // axios.get(searchString).then((res) => {
+          //   const $ = cheerio.load(res.data);
+          //   const trailerTail = $("title").text();
+          //   // const trailer = "https://youtube.com".concat(trailerTail);
+
+          //   console.log(trailerTail);
+          // });
+
+          // Fetch Trailer End
+
           movie.poster = $(".poster").attr("src");
           movie.description = $(".content-group")
             .find("p")
@@ -49,7 +65,7 @@ export default fetchMovie = (url) =>
             movie.categories = categories;
           });
 
-          let artists = [];
+          var artists = [];
 
           $(".card-vertical").each(function (_, item) {
             const artist = {};

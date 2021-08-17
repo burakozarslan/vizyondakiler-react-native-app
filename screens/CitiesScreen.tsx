@@ -56,7 +56,10 @@ const CitiesScreen = ({ navigation }: TCitiesScreenProps) => {
           }}
         />
         <StyledButton
-          onPress={() => navigation.navigate(THEATRES_SCREEN, { url: value })}
+          onPress={() => {
+            if (value === "") return;
+            return navigation.navigate(THEATRES_SCREEN, { url: value });
+          }}
         />
       </View>
     </ScreenLayout>

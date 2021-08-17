@@ -120,7 +120,7 @@ const MovieDetailsScreen = ({ route }: TMovieDetailsScreenProps) => {
           )}
         >
           {/* Play Button */}
-          <TouchableOpacity onPress={() => handleOpenLink(movie.trailer)}>
+          <TouchableOpacity onPress={() => handleOpenLink(movieDetail.trailer)}>
             <Ionicons
               name="play-circle"
               size={80}
