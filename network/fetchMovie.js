@@ -10,6 +10,7 @@ export default fetchMovie = (url) =>
           const $ = cheerio.load(res.data, { xmlMode: true });
 
           let movie = {};
+          var categories = [];
 
           movie.title = $("h1").text();
           movie.poster = $(".poster").attr("src");
@@ -35,8 +36,6 @@ export default fetchMovie = (url) =>
                 .replace(/\n| |/g, "")
                 .trim();
             }
-
-            let categories = [];
 
             if ($(this).find(".label-title").text().includes("Tür:")) {
               movie.production = $(this)
