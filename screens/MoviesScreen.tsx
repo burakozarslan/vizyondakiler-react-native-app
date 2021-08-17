@@ -147,7 +147,7 @@ const MoviesScreen = ({ navigation, route }: TMoviesScreenProps) => {
         {error && <DisplayMessage message="Bir hata olustu." />}
         {loading && <DisplayMessage message="Lutfen bekleyin..." />}
         {noResults && (
-          <DisplayMessage message="Bu salonda bir film gosterilmiyor." />
+          <DisplayMessage message="Bu salonda film gosterilmiyor." />
         )}
         <FlatList
           data={movies}

@@ -32,8 +32,7 @@ export type TMovieDetails = {
   duration: string;
   categories: string[];
   description: string;
-  year: string;
-  country: string;
+  production: string;
   cast: TArtist[];
 };
 

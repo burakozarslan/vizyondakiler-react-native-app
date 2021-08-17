@@ -6,6 +6,7 @@ import {
   ScrollView,
   FlatList,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import tw from "../lib/tailwind";
 import * as Linking from "expo-linking";
@@ -14,10 +15,13 @@ import { Ionicons } from "@expo/vector-icons";
 
 import ScreenLayout from "../components/shared/ScreenLayout";
 import { TMovieDetailsScreenProps } from "../types/screenTypes";
-import { TArtist } from "../types/dataTypes";
+import { TArtist, TMovieDetails } from "../types/dataTypes";
 
 // dummy data
 import { movieDetail } from "../data/movieDetails";
+import fetchMovie from "../network/fetchMovie";
+
+const { height, width } = Dimensions.get("window");
 
 const StyledText = ({ children }: { children: string }): JSX.Element => {
   return <Text style={tw.style("text-white text-xs")}>{children}</Text>;
@@ -55,7 +59,42 @@ const handleOpenLink = (url: string) => {
   Linking.openURL(url);
 };
 
+const DisplayMessage = ({ message }: { message: string }): JSX.Element => {
+  return (
+    <Text
+      style={{
+        fontFamily: "InriaSans_400Regular",
+        fontSize: width * 0.05,
+        color: "white",
+        textAlign: "center",
+        marginTop: width * 0.05,
+      }}
+    >
+      {message}
+    </Text>
+  );
+};
+
 const MovieDetailsScreen = ({ route }: TMovieDetailsScreenProps) => {
+  const [movie, setMovie] = React.useState<TMovieDetails | null>(null);
+  const [error, setError] = React.useState(null);
+
+  React.useEffect(() => {
+    fetchMovie(route.params.url)
+      .then((data) => {
+        setMovie(data);
+      })
+      .catch((e) => setError(e.message));
+  }, []);
+
+  if (!movie) {
+    return (
+      <ScreenLayout>
+        <DisplayMessage message="Lutfen bekleyin..." />
+      </ScreenLayout>
+    );
+  }
+
   return (
     <ScreenLayout>
       {/* Upper Half */}
@@ -68,7 +107,7 @@ const MovieDetailsScreen = ({ route }: TMovieDetailsScreenProps) => {
               resizeMode: "cover",
             })}
             source={{
-              uri: movieDetail.poster,
+              uri: movie.poster,
             }}
           />
         </View>
@@ -81,7 +120,7 @@ const MovieDetailsScreen = ({ route }: TMovieDetailsScreenProps) => {
           )}
         >
           {/* Play Button */}
-          <TouchableOpacity onPress={() => handleOpenLink(movieDetail.trailer)}>
+          <TouchableOpacity onPress={() => handleOpenLink(movie.trailer)}>
             <Ionicons
               name="play-circle"
               size={80}
@@ -105,20 +144,21 @@ const MovieDetailsScreen = ({ route }: TMovieDetailsScreenProps) => {
           <View
             style={tw.style("flex-row justify-between items-center flex-wrap")}
           >
-            {movieDetail.categories.map((cat, index) => {
-              return (
-                <Pill key={index}>
-                  <StyledText>{cat}</StyledText>
-                </Pill>
-              );
-            })}
+            {movie.categories &&
+              movie.categories.map((cat, index) => {
+                return (
+                  <Pill key={index}>
+                    <StyledText>{cat}</StyledText>
+                  </Pill>
+                );
+              })}
           </View>
           <View>
+            {/* <Text style={tw.style("text-pink-900 font-bold text-xs")}>
+              Yapim: {movieDetail.production}
+            </Text> */}
             <Text style={tw.style("text-pink-900 font-bold text-xs")}>
-              Yapim: {movieDetail.country}
-            </Text>
-            <Text style={tw.style("text-pink-900 font-bold text-xs")}>
-              Sure: {movieDetail.duration}
+              Sure: {movie.duration}
             </Text>
           </View>
         </View>
@@ -128,7 +168,7 @@ const MovieDetailsScreen = ({ route }: TMovieDetailsScreenProps) => {
             fontFamily: "InriaSans_400Regular",
           })}
         >
-          {movieDetail.title}
+          {movie.title}
         </Text>
         {/* Movie Description */}
         <ScrollView style={tw.style("flex-1 mt-2")}>
@@ -137,13 +177,13 @@ const MovieDetailsScreen = ({ route }: TMovieDetailsScreenProps) => {
               fontFamily: "InriaSans_400Regular",
             })}
           >
-            {movieDetail.description}
+            {movie.description}
           </Text>
         </ScrollView>
         {/* Cast */}
         <View style={tw.style("py-3 flex-row")}>
           <FlatList
-            data={movieDetail.cast}
+            data={movie.cast}
             renderItem={({ item }: { item: TArtist }) => renderArtist(item)}
             keyExtractor={(_, index) => String(index)}
             horizontal={true}
