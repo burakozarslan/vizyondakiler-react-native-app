@@ -59,8 +59,8 @@ export default fetchTheatres = (url) =>
           });
           resolve(theatres);
         } catch (e) {
-          reject(e.message);
+          reject(e);
         }
       })
-      .catch((e) => reject(e.message));
+      .catch((e) => reject(e));
   });

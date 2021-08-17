@@ -54,7 +54,13 @@ const RenderItem = ({
         >
           {item.title}
         </Text>
-        <View style={{ height: height * 0.18, marginTop: height * 0.01 }}>
+        <View
+          style={{
+            height: height * 0.18,
+            marginTop: height * 0.01,
+            flex: 1,
+          }}
+        >
           {item.address !== "" && (
             <Text
               style={{

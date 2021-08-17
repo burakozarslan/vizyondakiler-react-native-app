@@ -48,4 +48,5 @@ export type TMovie = {
   categories: string[];
   poster: string;
   sessions: TSession[];
+  url: string;
 };

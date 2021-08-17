@@ -19,7 +19,7 @@ import ScreenLayout from "../components/shared/ScreenLayout";
 import CardView from "../components/shared/CardView";
 import { TMovie } from "../types/dataTypes";
 
-import { movies as moviesData } from "../data/movies";
+import fetchMovies from "../network/fetchMovies";
 
 const { height, width } = Dimensions.get("window");
 
@@ -41,6 +41,20 @@ const Pill = ({ time }: { time: string }): JSX.Element => {
   );
 };
 
+const DisplayMessage = ({ message }: { message: string }): JSX.Element => {
+  return (
+    <Text
+      style={{
+        fontFamily: "InriaSans_400Regular",
+        fontSize: width * 0.05,
+        color: "white",
+      }}
+    >
+      {message}
+    </Text>
+  );
+};
+
 const RenderMovie = ({
   item,
   navigation,
@@ -50,7 +64,9 @@ const RenderMovie = ({
 }) => {
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate(MOVIE_DETAILS_SCREEN, { url: "" })}
+      onPress={() =>
+        navigation.navigate(MOVIE_DETAILS_SCREEN, { url: item.url })
+      }
     >
       <CardView>
         <View style={tw.style("flex-row")}>
@@ -65,11 +81,12 @@ const RenderMovie = ({
             style={{
               paddingTop: width * 0.03,
               paddingLeft: width * 0.05,
+              flex: 1,
             }}
           >
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.subTitle}>{item.originalTitle}</Text>
-            <Text style={styles.text}>Tur: {item.categories.join(" ,")}</Text>
+            <Text style={styles.text}>Tur: {item.categories.join(", ")}</Text>
           </View>
         </View>
         {/* Bottom Container */}
@@ -108,12 +125,32 @@ const RenderMovie = ({
   );
 };
 
-const MoviesScreen = ({ navigation }: TMoviesScreenProps) => {
+const MoviesScreen = ({ navigation, route }: TMoviesScreenProps) => {
+  const [movies, setMovies] = React.useState([]);
+  const [error, setError] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+  const [noResults, setNoResults] = React.useState(false);
+
+  React.useEffect(() => {
+    fetchMovies(route.params.url)
+      .then((data) => {
+        if (data.length === 0) setNoResults(true);
+        setMovies(data);
+      })
+      .catch((e) => setError(e.message));
+    setLoading(false);
+  }, []);
+
   return (
     <ScreenLayout>
       <View style={styles.screen}>
+        {error && <DisplayMessage message="Bir hata olustu." />}
+        {loading && <DisplayMessage message="Lutfen bekleyin..." />}
+        {noResults && (
+          <DisplayMessage message="Bu salonda bir film gosterilmiyor." />
+        )}
         <FlatList
-          data={moviesData}
+          data={movies}
           keyExtractor={(_, index) => String(index)}
           renderItem={({ item }: { item: TMovie }) => (
             <RenderMovie item={item} navigation={navigation} />
