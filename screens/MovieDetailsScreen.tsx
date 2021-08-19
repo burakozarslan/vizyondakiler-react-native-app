@@ -43,7 +43,13 @@ const Artist = ({ name, image }: TArtist): JSX.Element => {
       <View style={tw.style("h-20")}>
         <Image
           style={tw.style("w-full h-full", { resizeMode: "cover" })}
-          source={{ uri: image }}
+          source={
+            image.endsWith("no_avatar.jpg")
+              ? require("../assets/anon_icon.jpg")
+              : {
+                  uri: image,
+                }
+          }
         />
       </View>
       <Text style={tw.style("text-white text-xs ml-1")}>{name}</Text>
