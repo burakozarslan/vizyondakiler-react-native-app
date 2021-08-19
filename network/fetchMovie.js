@@ -1,3 +1,5 @@
+import fetchTrailer from "./fetchTrailer";
+
 const cheerio = require("react-native-cheerio");
 const axios = require("axios");
 
@@ -13,22 +15,6 @@ export default fetchMovie = (url) =>
           var categories = [];
 
           movie.title = $("h1").text();
-
-          // Fetch Trailer Start
-          // const baseUrl = "https://www.youtube.com/results?search_query=";
-          // const searchString =
-          //   baseUrl + movie.title.split(" ").concat("trailer").join("+");
-
-          // axios.get(searchString).then((res) => {
-          //   const $ = cheerio.load(res.data);
-          //   const trailerTail = $("title").text();
-          //   // const trailer = "https://youtube.com".concat(trailerTail);
-
-          //   console.log(trailerTail);
-          // });
-
-          // Fetch Trailer End
-
           movie.poster = $(".poster").attr("src");
           movie.description = $(".content-group")
             .find("p")
@@ -81,6 +67,12 @@ export default fetchMovie = (url) =>
           });
 
           movie.cast = artists;
+
+          fetchTrailer(movie.title)
+            .then((trailer) => (movie.trailer = trailer))
+            .catch(
+              (movie.trailer = "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+            );
 
           resolve(movie);
         } catch (e) {

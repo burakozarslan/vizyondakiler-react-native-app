@@ -11,6 +11,7 @@ npm-debug.*
 web-build/
 # expo
 .expo-shared/
+env.config.js
 
 # macOS
 .DS_Store
