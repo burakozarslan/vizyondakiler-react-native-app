@@ -1,4 +1,4 @@
-![enter image description here](https://s10.gifyu.com/images/rn-app-gif.md.gif)
+![enter image description here](https://s10.gifyu.com/images/rn-app-gif.gif)
 
 # About the Vizyondakiler App
 
