@@ -1,4 +1,4 @@
-![enter image description here](https://thumbs.gfycat.com/PoliticalPhysicalGossamerwingedbutterfly-mobile.mp4)
+![enter image description here](https://s10.gifyu.com/images/rn-app-gif.md.gif)
 
 # About the Vizyondakiler App
 
