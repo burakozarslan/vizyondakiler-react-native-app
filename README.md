@@ -1,4 +1,4 @@
-![enter image description here](https://s9.gifyu.com/images/ezgif.com-gif-makerf551ecf660f0010c.gif)
+![enter image description here](https://gfycat.com/politicalphysicalgossamerwingedbutterfly)
 
 # About the Vizyondakiler App
 
